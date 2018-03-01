@@ -1259,15 +1259,15 @@ func (_m *MockdatabaseIndex) EXPECT() *MockdatabaseIndexMockRecorder {
 }
 
 // Write mocks base method
-func (_m *MockdatabaseIndex) Write(ctx context.Context, namespace ident.ID, id ident.ID, tags ident.TagIterator) error {
-	ret := _m.ctrl.Call(_m, "Write", ctx, namespace, id, tags)
+func (_m *MockdatabaseIndex) Write(namespace ident.ID, id ident.ID, tags ident.Tags) error {
+	ret := _m.ctrl.Call(_m, "Write", namespace, id, tags)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Write indicates an expected call of Write
-func (_mr *MockdatabaseIndexMockRecorder) Write(arg0, arg1, arg2, arg3 interface{}) *gomock.Call {
-	return _mr.mock.ctrl.RecordCallWithMethodType(_mr.mock, "Write", reflect.TypeOf((*MockdatabaseIndex)(nil).Write), arg0, arg1, arg2, arg3)
+func (_mr *MockdatabaseIndexMockRecorder) Write(arg0, arg1, arg2 interface{}) *gomock.Call {
+	return _mr.mock.ctrl.RecordCallWithMethodType(_mr.mock, "Write", reflect.TypeOf((*MockdatabaseIndex)(nil).Write), arg0, arg1, arg2)
 }
 
 // Query mocks base method
