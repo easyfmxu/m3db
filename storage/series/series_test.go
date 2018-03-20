@@ -298,7 +298,7 @@ func TestSeriesTickNotRetrieved(t *testing.T) {
 	opts = opts.SetClockOptions(opts.ClockOptions().SetNowFn(func() time.Time {
 		return curr
 	}))
-	series := NewDatabaseSeries(ident.StringID("foo"), opts).(*dbSeries)
+	series := NewDatabaseSeries(ident.StringID("foo"), nil, opts).(*dbSeries)
 	blockRetriever := NewMockQueryableBlockRetriever(ctrl)
 	series.blockRetriever = blockRetriever
 	require.NoError(t, series.Bootstrap(nil))
@@ -327,7 +327,7 @@ func TestSeriesTickRecentlyRead(t *testing.T) {
 	opts = opts.SetClockOptions(opts.ClockOptions().SetNowFn(func() time.Time {
 		return curr
 	}))
-	series := NewDatabaseSeries(ident.StringID("foo"), opts).(*dbSeries)
+	series := NewDatabaseSeries(ident.StringID("foo"), nil, opts).(*dbSeries)
 	blockRetriever := NewMockQueryableBlockRetriever(ctrl)
 	series.blockRetriever = blockRetriever
 	require.NoError(t, series.Bootstrap(nil))
@@ -387,7 +387,7 @@ func TestSeriesTickCacheLRU(t *testing.T) {
 	opts = opts.SetClockOptions(opts.ClockOptions().SetNowFn(func() time.Time {
 		return curr
 	}))
-	series := NewDatabaseSeries(ident.StringID("foo"), opts).(*dbSeries)
+	series := NewDatabaseSeries(ident.StringID("foo"), nil, opts).(*dbSeries)
 	blockRetriever := NewMockQueryableBlockRetriever(ctrl)
 	series.blockRetriever = blockRetriever
 	require.NoError(t, series.Bootstrap(nil))
@@ -455,7 +455,7 @@ func TestSeriesTickCacheAllMetadata(t *testing.T) {
 	opts = opts.SetClockOptions(opts.ClockOptions().SetNowFn(func() time.Time {
 		return curr
 	}))
-	series := NewDatabaseSeries(ident.StringID("foo"), opts).(*dbSeries)
+	series := NewDatabaseSeries(ident.StringID("foo"), nil, opts).(*dbSeries)
 	blockRetriever := NewMockQueryableBlockRetriever(ctrl)
 	series.blockRetriever = blockRetriever
 	require.NoError(t, series.Bootstrap(nil))
@@ -516,7 +516,7 @@ func TestSeriesTickCacheNone(t *testing.T) {
 	opts = opts.SetClockOptions(opts.ClockOptions().SetNowFn(func() time.Time {
 		return curr
 	}))
-	series := NewDatabaseSeries(ident.StringID("foo"), opts).(*dbSeries)
+	series := NewDatabaseSeries(ident.StringID("foo"), nil, opts).(*dbSeries)
 	blockRetriever := NewMockQueryableBlockRetriever(ctrl)
 	series.blockRetriever = blockRetriever
 	require.NoError(t, series.Bootstrap(nil))
@@ -747,7 +747,7 @@ func TestSeriesOutOfOrderWritesAndRotate(t *testing.T) {
 	)
 
 	series := NewDatabaseSeries(id, nil, opts).(*dbSeries)
-	series.Reset(id, nil, nil, nil, opts)
+	series.Reset(id, nil, nil, nil, nil, opts)
 
 	for iter := 0; iter < numBlocks; iter++ {
 		start := now
@@ -831,7 +831,7 @@ func TestSeriesCloseNonCacheLRUPolicy(t *testing.T) {
 
 	opts := newSeriesTestOptions().
 		SetCachePolicy(CacheRecentlyRead)
-	series := NewDatabaseSeries(ident.StringID("foo"), opts).(*dbSeries)
+	series := NewDatabaseSeries(ident.StringID("foo"), nil, opts).(*dbSeries)
 
 	start := time.Now()
 	blocks := block.NewDatabaseSeriesBlocks(0)
@@ -850,7 +850,7 @@ func TestSeriesCloseCacheLRUPolicy(t *testing.T) {
 
 	opts := newSeriesTestOptions().
 		SetCachePolicy(CacheLRU)
-	series := NewDatabaseSeries(ident.StringID("foo"), opts).(*dbSeries)
+	series := NewDatabaseSeries(ident.StringID("foo"), nil, opts).(*dbSeries)
 
 	start := time.Now()
 	blocks := block.NewDatabaseSeriesBlocks(0)

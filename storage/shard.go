@@ -876,7 +876,7 @@ func (s *dbShard) newShardEntry(id ident.ID, tags ident.TagIterator) *dbShardEnt
 	clonedID := s.identifierPool.Clone(id)
 	clonedTags := s.cloneTags(tags)
 	series.Reset(clonedID, clonedTags, s.seriesBlockRetriever,
-		s.seriesOnRetrieveBlock, s.seriesOpts)
+		s.seriesOnRetrieveBlock, s, s.seriesOpts)
 	uniqueIndex := s.increasingIndex.nextIndex()
 	return &dbShardEntry{series: series, index: uniqueIndex}
 }

@@ -31,6 +31,10 @@ var (
 	// ReservedFieldNameNamespace is the field name used to index namespace in the
 	// m3ninx subsytem.
 	ReservedFieldNameNamespace = []byte("_m3db-namespace")
+
+	// ReservedFieldNameID is the field name used to index the ID in the
+	// m3ninx subsytem.
+	ReservedFieldNameID = []byte("_m3db-id")
 )
 
 // Query is a rich end user query to describe a set of constraints on required IDs.

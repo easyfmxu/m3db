@@ -88,8 +88,12 @@ func (i *dbIndex) doc(ns, id ident.ID, tags ident.Tags) doc.Document {
 	// clone semantics within m3ninx itself.
 	nsCopy := i.idPool.Clone(ns)
 	idCopy := i.idPool.Clone(id)
-	fields := make([]doc.Field, 0, 1+len(tags))
+	fields := make([]doc.Field, 0, 2+len(tags))
 	fields = append(fields, doc.Field{
+		Name:      index.ReservedFieldNameID,
+		Value:     idCopy.Data().Get(),
+		ValueType: doc.StringValueType,
+	}, doc.Field{
 		Name:      index.ReservedFieldNameNamespace,
 		Value:     nsCopy.Data().Get(),
 		ValueType: doc.StringValueType,

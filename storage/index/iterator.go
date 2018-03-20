@@ -93,7 +93,12 @@ func (i *idsIter) parseAndStore(d doc.Document) {
 	// TODO(prateek): add ident.Pool method for - Get([]byte) ID - do not assume ownership of input bytes
 	i.currentID = ident.StringID(string(d.ID))
 	nsFound := false
+	idFound := false
 	for _, f := range d.Fields {
+		if !idFound && bytes.Equal(f.Name, ReservedFieldNameID) {
+			idFound = true
+			continue
+		}
 		if !nsFound && bytes.Equal(f.Name, ReservedFieldNameNamespace) {
 			i.currentNs = ident.StringID(string(f.Value))
 			nsFound = true
